@@ -1,0 +1,2 @@
+-- TODO: T-6.1 — Seed con datos chilenos realistas
+-- Se ejecutará después de las migraciones para demo
