@@ -1,5 +1,5 @@
 // TODO: T-0.2 — Supabase server client
-import { createServerClient as createSSRClient } from '@supabase/ssr';
+import { createServerClient as createSSRClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 export function createServerClient() {
@@ -13,10 +13,10 @@ export function createServerClient() {
         get(name: string) {
           return cookieStore.get(name)?.value;
         },
-        set(name: string, value: string, options) {
+        set(name: string, value: string, options: CookieOptions) {
           cookieStore.set({ name, value, ...options });
         },
-        remove(name: string, options) {
+        remove(name: string, options: CookieOptions) {
           cookieStore.set({ name, value: '', ...options });
         },
       },
