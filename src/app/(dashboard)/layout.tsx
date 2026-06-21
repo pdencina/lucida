@@ -45,8 +45,8 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <aside className="flex w-56 flex-col border-r border-gray-200 bg-white">
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      <aside className="fixed inset-y-0 left-0 flex w-56 flex-col border-r border-gray-200 bg-white">
         <div className="flex h-14 items-center border-b border-gray-100 px-5">
           <span className="text-[15px] font-semibold tracking-tight text-gray-900">Remis</span>
         </div>
@@ -90,7 +90,7 @@ export default function DashboardLayout({
           </button>
         </div>
       </aside>
-      <main className="flex-1 overflow-y-auto">
+      <main className="ml-56 flex-1 overflow-y-auto">
         <div className="mx-auto max-w-6xl px-8 py-6">{children}</div>
       </main>
     </div>
