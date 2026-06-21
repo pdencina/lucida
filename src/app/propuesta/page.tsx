@@ -117,7 +117,7 @@ export default function PropuestaPage() {
 
       {/* Footer */}
       <div className="mt-16 border-t border-gray-100 pt-8 text-center">
-        <p className="text-sm font-medium text-gray-900">remis</p>
+        <p className="text-sm font-medium text-gray-900">Remis</p>
         <p className="mt-1 text-xs text-gray-400">Conciliación de ingresos clínicos</p>
         <p className="mt-3 text-xs text-gray-400">contacto@remis.cl</p>
       </div>

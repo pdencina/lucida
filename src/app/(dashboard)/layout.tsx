@@ -24,7 +24,7 @@ export default function DashboardLayout({
     <div className="flex min-h-screen bg-gray-50">
       <aside className="flex w-56 flex-col border-r border-gray-200 bg-white">
         <div className="flex h-14 items-center border-b border-gray-100 px-5">
-          <span className="text-[15px] font-semibold tracking-tight text-gray-900">remis</span>
+          <span className="text-[15px] font-semibold tracking-tight text-gray-900">Remis</span>
         </div>
         <nav className="flex-1 space-y-0.5 px-2.5 py-3">
           {NAV_ITEMS.map((item) => {
