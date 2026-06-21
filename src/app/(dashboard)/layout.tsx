@@ -1,12 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-
 import { createClient } from '@/lib/utils/supabase/client';
+import { getRol, RUTAS_POR_ROL, type Rol } from '@/lib/utils/roles';
 
-const NAV_ITEMS = [
+const ALL_NAV_ITEMS = [
   { href: '/', label: 'Resumen', icon: DashboardIcon },
   { href: '/bonos', label: 'Bonos', icon: BonosIcon },
   { href: '/carga', label: 'Carga', icon: CargaIcon },
@@ -21,6 +22,21 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [rol, setRol] = useState<Rol>('clinica');
+  const [email, setEmail] = useState<string>('');
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      const userEmail = data.user?.email || '';
+      setEmail(userEmail);
+      setRol(getRol(userEmail));
+    });
+  }, []);
+
+  const navItems = ALL_NAV_ITEMS.filter((item) =>
+    RUTAS_POR_ROL[rol].includes(item.href)
+  );
 
   async function handleLogout() {
     const supabase = createClient();
@@ -35,7 +51,7 @@ export default function DashboardLayout({
           <span className="text-[15px] font-semibold tracking-tight text-gray-900">Remis</span>
         </div>
         <nav className="flex-1 space-y-0.5 px-2.5 py-3">
-          {NAV_ITEMS.map((item) => {
+          {navItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
             return (
@@ -51,8 +67,8 @@ export default function DashboardLayout({
               >
                 <Icon active={isActive} />
                 <span className="flex-1">{item.label}</span>
-                {item.badge && (
-                  <span className="flex h-4.5 min-w-[18px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
+                {item.badge && rol === 'admin' && (
+                  <span className="flex h-4 min-w-[18px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
                     {item.badge}
                   </span>
                 )}
@@ -62,7 +78,7 @@ export default function DashboardLayout({
         </nav>
         <div className="border-t border-gray-100 px-4 py-3">
           <p className="text-[12px] font-medium text-gray-700">BS Salud</p>
-          <p className="text-[11px] text-gray-400">Junio 2026</p>
+          <p className="text-[11px] text-gray-400">{email}</p>
           <button
             onClick={handleLogout}
             className="mt-2 flex items-center gap-1.5 text-[12px] text-gray-400 hover:text-gray-600"
