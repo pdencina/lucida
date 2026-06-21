@@ -134,6 +134,11 @@ export default function LoginPage() {
               Registrar clínica
             </Link>
           </p>
+          <p className="mt-3 text-center">
+            <Link href="/propuesta" className="text-xs text-gray-400 hover:text-gray-600 hover:underline">
+              ¿Qué es Remis? →
+            </Link>
+          </p>
         </div>
       </div>
     </div>

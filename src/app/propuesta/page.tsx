@@ -1,6 +1,15 @@
 export default function PropuestaPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
+      {/* Nav */}
+      <nav className="mb-12 flex items-center justify-between">
+        <span className="text-[15px] font-semibold text-gray-900">Remis</span>
+        <div className="flex items-center gap-4">
+          <a href="/login" className="text-sm text-gray-500 hover:text-gray-700">Iniciar sesión</a>
+          <a href="/register" className="rounded-md bg-gray-900 px-3.5 py-1.5 text-sm font-medium text-white hover:bg-gray-800">Crear cuenta</a>
+        </div>
+      </nav>
+
       {/* Header */}
       <div className="mb-12 text-center">
         <p className="text-sm font-medium text-gray-400">Propuesta para</p>
@@ -117,9 +126,15 @@ export default function PropuestaPage() {
 
       {/* Footer */}
       <div className="mt-16 border-t border-gray-100 pt-8 text-center">
-        <p className="text-sm font-medium text-gray-900">Remis</p>
-        <p className="mt-1 text-xs text-gray-400">Conciliación de ingresos clínicos</p>
-        <p className="mt-3 text-xs text-gray-400">contacto@remis.cl</p>
+        <a href="/register" className="inline-block rounded-md bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-800">
+          Crear cuenta gratis
+        </a>
+        <p className="mt-4 text-xs text-gray-400">Sin tarjeta de crédito · Sin permanencia</p>
+        <div className="mt-8">
+          <p className="text-sm font-medium text-gray-900">Remis</p>
+          <p className="mt-1 text-xs text-gray-400">Conciliación de ingresos clínicos</p>
+          <p className="mt-3 text-xs text-gray-400">contacto@remis.cl</p>
+        </div>
       </div>
     </div>
   );
