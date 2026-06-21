@@ -5,7 +5,7 @@ export default function PropuestaPage() {
       <div className="mb-12 text-center">
         <p className="text-sm font-medium text-gray-400">Propuesta para</p>
         <h1 className="mt-1 text-2xl font-semibold text-gray-900">BS Salud</h1>
-        <p className="mt-2 text-sm text-gray-500">Preparado por Lúcida · Junio 2026</p>
+        <p className="mt-2 text-sm text-gray-500">Preparado por Remis · Junio 2026</p>
       </div>
 
       {/* El problema */}
@@ -31,16 +31,16 @@ export default function PropuestaPage() {
         </Highlight>
       </Section>
 
-      {/* Qué hace Lúcida */}
-      <Section titulo="Qué hace Lúcida">
+      {/* Qué hace Remis */}
+      <Section titulo="Qué hace Remis">
         <p>
-          Lúcida es una plataforma que <strong>cruza toda la información financiera de tu clínica</strong> y te muestra
+          Remis es una plataforma que <strong>cruza toda la información financiera de tu clínica</strong> y te muestra
           exactamente dónde se está quedando tu plata.
         </p>
         <div className="mt-6 space-y-4">
           <Feature
             titulo="1. Subes tus archivos"
-            desc="Los mismos Excel que ya manejas: bonos emitidos, liquidaciones de Isapres, cartolas del banco. Lúcida los lee automáticamente."
+            desc="Los mismos Excel que ya manejas: bonos emitidos, liquidaciones de Isapres, cartolas del banco. Remis los lee automáticamente."
           />
           <Feature
             titulo="2. Cruzamos todo"
@@ -69,7 +69,7 @@ export default function PropuestaPage() {
           </tbody>
         </table>
         <p className="mt-4">
-          Sin Lúcida, ese $1.180.000 perdido <strong>pasa desapercibido</strong>. Con Lúcida, sabes exactamente
+          Sin Remis, ese $1.180.000 perdido <strong>pasa desapercibido</strong>. Con Remis, sabes exactamente
           qué bonos se rechazaron, por qué, y qué puedes hacer para recuperar parte de ese monto (corregir códigos,
           reclamar, renovar convenios).
         </p>
@@ -97,7 +97,7 @@ export default function PropuestaPage() {
           <p className="mt-2 text-sm text-gray-500">Sin permanencia mínima · Cancela cuando quieras</p>
         </div>
         <Highlight>
-          Si Lúcida te ayuda a recuperar aunque sea $500.000 al mes de lo que hoy se pierde,
+          Si Remis te ayuda a recuperar aunque sea $500.000 al mes de lo que hoy se pierde,
           el retorno es de 5x la inversión. En la práctica, los centros que hacen seguimiento activo
           recuperan entre $800.000 y $2.000.000 mensuales.
         </Highlight>
@@ -117,9 +117,9 @@ export default function PropuestaPage() {
 
       {/* Footer */}
       <div className="mt-16 border-t border-gray-100 pt-8 text-center">
-        <p className="text-sm font-medium text-gray-900">lúcida</p>
+        <p className="text-sm font-medium text-gray-900">remis</p>
         <p className="mt-1 text-xs text-gray-400">Conciliación de ingresos clínicos</p>
-        <p className="mt-3 text-xs text-gray-400">contacto@lucida.cl · lucida-two.vercel.app</p>
+        <p className="mt-3 text-xs text-gray-400">contacto@remis.cl</p>
       </div>
     </div>
   );

@@ -39,7 +39,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-white">
       <div className="w-full max-w-sm px-6">
         <div className="mb-8">
-          <h1 className="text-base font-semibold text-gray-900">lúcida</h1>
+          <h1 className="text-base font-semibold text-gray-900">remis</h1>
           <p className="mt-1 text-sm text-gray-500">Inicia sesión en tu cuenta</p>
         </div>
 

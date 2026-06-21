@@ -1,4 +1,4 @@
-export const APP_NAME = 'Lúcida';
+export const APP_NAME = 'Remis';
 export const TIMEZONE = 'America/Santiago';
 export const LOCALE = 'es-CL';
 export const ITEMS_PER_PAGE = 50;

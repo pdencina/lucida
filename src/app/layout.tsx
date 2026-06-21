@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Lúcida — Conciliación de Ingresos Clínicos',
+  title: 'Remis — Conciliación de Ingresos Clínicos',
   description: 'Plataforma de conciliación financiera para centros médicos y clínicas en Chile',
 };
 

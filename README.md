@@ -1,4 +1,4 @@
-# Lúcida — Conciliación de Ingresos Clínicos
+# Remis — Conciliación de Ingresos Clínicos
 
 SaaS chileno que concilia los ingresos de centros médicos y clínicas: cruza lo facturado (bonos), lo pagado por FONASA/Isapres (liquidaciones), lo procesado por tarjeta (Transbank/WebPay) y lo que llegó al banco — mostrando cuánta plata quedó atrapada y por qué.
 
