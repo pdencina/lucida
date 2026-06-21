@@ -5,22 +5,22 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 const RESULTADO = {
-  emitido: 12450000,
-  liquidado: 9820000,
-  depositado: 8640000,
-  atrapado: 2630000,
-  totalBonos: 234,
-  bonosConciliados: 167,
-  bonosRechazados: 33,
-  bonosPendientes: 34,
+  facturado: 18740000,
+  cobrado: 14950000,
+  porCobrar: 2610000,
+  perdido: 1180000,
+  totalBonos: 312,
+  conciliados: 241,
+  rechazados: 39,
+  pendientes: 32,
 };
 
-const DETALLE = [
-  { aseguradora: 'FONASA', emitido: 5200000, liquidado: 4800000, brecha: 400000, bonos: 98, tasa: 92.3 },
-  { aseguradora: 'Banmédica', emitido: 3100000, liquidado: 2400000, brecha: 700000, bonos: 52, tasa: 77.4 },
-  { aseguradora: 'Cruz Blanca', emitido: 2200000, liquidado: 1500000, brecha: 700000, bonos: 38, tasa: 68.2 },
-  { aseguradora: 'Colmena', emitido: 1200000, liquidado: 780000, brecha: 420000, bonos: 28, tasa: 65.0 },
-  { aseguradora: 'Consalud', emitido: 750000, liquidado: 340000, brecha: 410000, bonos: 18, tasa: 45.3 },
+const POR_ASEGURADORA = [
+  { nombre: 'FONASA', facturado: 7200000, cobrado: 6840000, brecha: 360000, bonos: 124, tasa: 95.0 },
+  { nombre: 'Banmédica', facturado: 4100000, cobrado: 3200000, brecha: 900000, bonos: 68, tasa: 78.0 },
+  { nombre: 'Cruz Blanca', facturado: 3200000, cobrado: 2240000, brecha: 960000, bonos: 53, tasa: 70.0 },
+  { nombre: 'Colmena', facturado: 2400000, cobrado: 1920000, brecha: 480000, bonos: 40, tasa: 80.0 },
+  { nombre: 'Consalud', facturado: 1840000, cobrado: 750000, brecha: 1090000, bonos: 27, tasa: 40.8 },
 ];
 
 function formatCLP(n: number) {
@@ -35,82 +35,84 @@ export default function ConciliacionPage() {
     setTimeout(() => setEjecutando(false), 2000);
   }
 
-  const tasa = ((RESULTADO.bonosConciliados / RESULTADO.totalBonos) * 100).toFixed(1);
+  const tasa = ((RESULTADO.conciliados / RESULTADO.totalBonos) * 100).toFixed(1);
 
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Conciliación</h1>
-          <p className="text-sm text-gray-500">Junio 2026</p>
+          <p className="text-sm text-gray-500">Junio 2026 · 312 prestaciones procesadas</p>
         </div>
         <Button onClick={ejecutar} disabled={ejecutando}>
-          {ejecutando ? 'Ejecutando...' : 'Ejecutar'}
+          {ejecutando ? 'Ejecutando...' : 'Ejecutar conciliación'}
         </Button>
       </div>
 
-      {/* Resumen */}
+      {/* Métricas principales */}
       <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-4">
         <Card className="p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Tasa</p>
-          <p className="mt-1 text-xl font-semibold text-gray-900">{tasa}%</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Recuperación</p>
+          <p className="mt-1.5 text-2xl font-semibold text-gray-900">{tasa}%</p>
           <div className="mt-2 h-1.5 w-full rounded-full bg-gray-100">
             <div className="h-1.5 rounded-full bg-emerald-500" style={{ width: `${tasa}%` }} />
           </div>
         </Card>
         <Card className="p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Emitido</p>
-          <p className="mt-1 text-xl font-semibold text-gray-900">{formatCLP(RESULTADO.emitido)}</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Facturado</p>
+          <p className="mt-1.5 text-xl font-semibold text-gray-900">{formatCLP(RESULTADO.facturado)}</p>
           <p className="mt-0.5 text-xs text-gray-500">{RESULTADO.totalBonos} bonos</p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Liquidado</p>
-          <p className="mt-1 text-xl font-semibold text-gray-900">{formatCLP(RESULTADO.liquidado)}</p>
-          <p className="mt-0.5 text-xs text-gray-500">{RESULTADO.bonosConciliados} conciliados</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Cobrado</p>
+          <p className="mt-1.5 text-xl font-semibold text-emerald-600">{formatCLP(RESULTADO.cobrado)}</p>
+          <p className="mt-0.5 text-xs text-gray-500">{RESULTADO.conciliados} conciliados</p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Atrapado</p>
-          <p className="mt-1 text-xl font-semibold text-red-600">{formatCLP(RESULTADO.atrapado)}</p>
-          <p className="mt-0.5 text-xs text-gray-500">{RESULTADO.bonosRechazados + RESULTADO.bonosPendientes} bonos</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Perdido</p>
+          <p className="mt-1.5 text-xl font-semibold text-red-600">{formatCLP(RESULTADO.perdido)}</p>
+          <p className="mt-0.5 text-xs text-gray-500">{RESULTADO.rechazados} rechazados</p>
         </Card>
       </div>
 
       {/* Flujo */}
       <Card className="mb-6 p-5">
-        <h2 className="mb-4 text-sm font-medium text-gray-900">Flujo</h2>
-        <div className="flex items-center gap-3">
-          <Step label="Emitido" value={formatCLP(RESULTADO.emitido)} />
-          <Arrow />
-          <Step label="Liquidado" value={formatCLP(RESULTADO.liquidado)} />
-          <Arrow />
-          <Step label="Depositado" value={formatCLP(RESULTADO.depositado)} />
-          <Arrow />
-          <Step label="Atrapado" value={formatCLP(RESULTADO.atrapado)} highlight />
+        <h2 className="mb-3 text-sm font-medium text-gray-700">Flujo del dinero</h2>
+        <div className="flex items-center gap-2">
+          <FlowStep label="Facturado" value={formatCLP(RESULTADO.facturado)} />
+          <FlowArrow />
+          <FlowStep label="Cobrado" value={formatCLP(RESULTADO.cobrado)} />
+          <FlowArrow />
+          <FlowStep label="Por cobrar" value={formatCLP(RESULTADO.porCobrar)} muted />
+          <FlowArrow />
+          <FlowStep label="Perdido" value={formatCLP(RESULTADO.perdido)} danger />
         </div>
       </Card>
 
-      {/* Tabla detalle */}
+      {/* Tabla por aseguradora */}
       <Card className="overflow-hidden p-0">
         <div className="border-b border-gray-100 px-5 py-3">
-          <h2 className="text-sm font-medium text-gray-900">Por aseguradora</h2>
+          <h2 className="text-sm font-medium text-gray-900">Detalle por aseguradora</h2>
         </div>
-        <table className="w-full text-sm">
+        <table className="w-full text-[13px]">
           <thead>
             <tr className="border-b border-gray-100 text-left text-xs text-gray-400">
               <th className="px-5 py-2.5 font-medium">Aseguradora</th>
-              <th className="px-5 py-2.5 font-medium text-right">Emitido</th>
-              <th className="px-5 py-2.5 font-medium text-right">Liquidado</th>
+              <th className="px-5 py-2.5 font-medium text-right">Facturado</th>
+              <th className="px-5 py-2.5 font-medium text-right">Cobrado</th>
               <th className="px-5 py-2.5 font-medium text-right">Brecha</th>
+              <th className="px-5 py-2.5 font-medium text-right">Bonos</th>
               <th className="px-5 py-2.5 font-medium text-right">Tasa</th>
             </tr>
           </thead>
           <tbody>
-            {DETALLE.map((row, i) => (
-              <tr key={row.aseguradora} className={i < DETALLE.length - 1 ? 'border-b border-gray-50' : ''}>
-                <td className="px-5 py-2.5 font-medium text-gray-900">{row.aseguradora}</td>
-                <td className="px-5 py-2.5 text-right text-gray-500">{formatCLP(row.emitido)}</td>
-                <td className="px-5 py-2.5 text-right text-gray-500">{formatCLP(row.liquidado)}</td>
+            {POR_ASEGURADORA.map((row, i) => (
+              <tr key={row.nombre} className={i < POR_ASEGURADORA.length - 1 ? 'border-b border-gray-50' : ''}>
+                <td className="px-5 py-2.5 font-medium text-gray-900">{row.nombre}</td>
+                <td className="px-5 py-2.5 text-right text-gray-500">{formatCLP(row.facturado)}</td>
+                <td className="px-5 py-2.5 text-right text-gray-700">{formatCLP(row.cobrado)}</td>
                 <td className="px-5 py-2.5 text-right text-red-600">{formatCLP(row.brecha)}</td>
+                <td className="px-5 py-2.5 text-right text-gray-500">{row.bonos}</td>
                 <td className="px-5 py-2.5 text-right">
                   <span className={row.tasa >= 80 ? 'text-emerald-600' : row.tasa >= 60 ? 'text-amber-600' : 'text-red-600'}>
                     {row.tasa}%
@@ -125,18 +127,18 @@ export default function ConciliacionPage() {
   );
 }
 
-function Step({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+function FlowStep({ label, value, muted, danger }: { label: string; value: string; muted?: boolean; danger?: boolean }) {
   return (
     <div className="flex-1 rounded-md border border-gray-100 bg-gray-50 px-3 py-2.5 text-center">
       <p className="text-[11px] text-gray-400">{label}</p>
-      <p className={`text-sm font-semibold ${highlight ? 'text-red-600' : 'text-gray-900'}`}>{value}</p>
+      <p className={`text-sm font-semibold ${danger ? 'text-red-600' : muted ? 'text-gray-500' : 'text-gray-900'}`}>{value}</p>
     </div>
   );
 }
 
-function Arrow() {
+function FlowArrow() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 text-gray-300">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0 text-gray-300">
       <path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );

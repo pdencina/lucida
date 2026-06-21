@@ -7,22 +7,23 @@ import { Button } from '@/components/ui/button';
 interface Alerta {
   id: string;
   severidad: 'alta' | 'media' | 'baja';
-  mensaje: string;
+  titulo: string;
   detalle: string;
+  accion: string;
   fecha: string;
   resuelta: boolean;
 }
 
-const ALERTAS: Alerta[] = [
-  { id: '1', severidad: 'alta', mensaje: 'Tasa de rechazo elevada en Consalud', detalle: '54.7% de bonos rechazados (umbral: 30%)', fecha: '20/06/2026', resuelta: false },
-  { id: '2', severidad: 'alta', mensaje: '12 bonos sin liquidar hace más de 20 días', detalle: 'Bonos de Banmédica emitidos antes del 01/06/2026', fecha: '19/06/2026', resuelta: false },
-  { id: '3', severidad: 'media', mensaje: 'Convenio con Cruz Blanca vence en 25 días', detalle: 'Vencimiento: 15/07/2026', fecha: '18/06/2026', resuelta: false },
-  { id: '4', severidad: 'media', mensaje: 'Copago supera arancel en 4 bonos', detalle: 'Copago mayor al 50% del arancel', fecha: '17/06/2026', resuelta: false },
-  { id: '5', severidad: 'baja', mensaje: '3 posibles bonos duplicados', detalle: 'Mismo paciente, prestación y fecha', fecha: '16/06/2026', resuelta: true },
+const ALERTAS_INICIALES: Alerta[] = [
+  { id: '1', severidad: 'alta', titulo: 'Consalud rechaza 54% de bonos este mes', detalle: 'Tasa de rechazo muy por encima del umbral de 30%. Revisar convenio y codificación de prestaciones.', accion: 'Revisar convenio', fecha: '20 jun', resuelta: false },
+  { id: '2', severidad: 'alta', titulo: '14 bonos sin liquidar hace +20 días', detalle: 'Banmédica no ha respondido bonos emitidos antes del 31/05. Contactar ejecutivo de cuenta.', accion: 'Contactar ejecutivo', fecha: '19 jun', resuelta: false },
+  { id: '3', severidad: 'media', titulo: 'Convenio Cruz Blanca vence en 25 días', detalle: 'El convenio actual expira el 15/07/2026. Iniciar proceso de renovación.', accion: 'Renovar convenio', fecha: '18 jun', resuelta: false },
+  { id: '4', severidad: 'media', titulo: 'Copago supera arancel en 5 prestaciones', detalle: 'Se detectaron consultas donde el copago cobrado es mayor al 50% del arancel pactado. Posible error de facturación.', accion: 'Revisar facturación', fecha: '17 jun', resuelta: false },
+  { id: '5', severidad: 'baja', titulo: '3 posibles bonos duplicados', detalle: 'Mismo paciente, misma prestación y misma fecha. Verificar si corresponden a atenciones distintas.', accion: 'Verificar', fecha: '16 jun', resuelta: true },
 ];
 
 export default function AlertasPage() {
-  const [alertas, setAlertas] = useState(ALERTAS);
+  const [alertas, setAlertas] = useState(ALERTAS_INICIALES);
   const [filtro, setFiltro] = useState<'pendientes' | 'resueltas' | 'todas'>('pendientes');
 
   function resolver(id: string) {
@@ -42,7 +43,7 @@ export default function AlertasPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Alertas</h1>
-          <p className="text-sm text-gray-500">{pendientes} pendientes</p>
+          <p className="text-sm text-gray-500">{pendientes} requieren atención</p>
         </div>
         <div className="flex rounded-md border border-gray-200 bg-white">
           {(['pendientes', 'resueltas', 'todas'] as const).map((f) => (
@@ -62,41 +63,43 @@ export default function AlertasPage() {
       <div className="space-y-2">
         {filtradas.map((alerta) => (
           <Card key={alerta.id} className={`p-4 ${alerta.resuelta ? 'opacity-50' : ''}`}>
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex gap-3">
-                <SeveridadDot severidad={alerta.severidad} />
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{alerta.mensaje}</p>
-                  <p className="mt-0.5 text-xs text-gray-500">{alerta.detalle}</p>
-                  <p className="mt-1 text-[11px] text-gray-400">{alerta.fecha}</p>
+            <div className="flex items-start gap-3">
+              <div className={`mt-0.5 h-2 w-2 shrink-0 rounded-full ${
+                alerta.severidad === 'alta' ? 'bg-red-500' : alerta.severidad === 'media' ? 'bg-amber-400' : 'bg-gray-300'
+              }`} />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">{alerta.titulo}</p>
+                    <p className="mt-0.5 text-xs text-gray-500">{alerta.detalle}</p>
+                  </div>
+                  <span className="shrink-0 text-[11px] text-gray-400">{alerta.fecha}</span>
                 </div>
+                {!alerta.resuelta && (
+                  <div className="mt-3 flex items-center gap-2">
+                    <Button size="sm" onClick={() => resolver(alerta.id)}>{alerta.accion}</Button>
+                    <button
+                      onClick={() => resolver(alerta.id)}
+                      className="text-[12px] text-gray-400 hover:text-gray-600"
+                    >
+                      Descartar
+                    </button>
+                  </div>
+                )}
+                {alerta.resuelta && (
+                  <p className="mt-2 text-[11px] text-gray-400">Resuelta</p>
+                )}
               </div>
-              {!alerta.resuelta ? (
-                <Button size="sm" variant="secondary" onClick={() => resolver(alerta.id)}>
-                  Resolver
-                </Button>
-              ) : (
-                <span className="shrink-0 text-[11px] text-gray-400">resuelta</span>
-              )}
             </div>
           </Card>
         ))}
 
         {filtradas.length === 0 && (
           <div className="py-16 text-center">
-            <p className="text-sm text-gray-400">Sin alertas</p>
+            <p className="text-sm text-gray-400">Sin alertas {filtro !== 'todas' ? filtro : ''}</p>
           </div>
         )}
       </div>
     </div>
   );
-}
-
-function SeveridadDot({ severidad }: { severidad: string }) {
-  const color: Record<string, string> = {
-    alta: 'bg-red-500',
-    media: 'bg-amber-400',
-    baja: 'bg-gray-300',
-  };
-  return <div className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${color[severidad]}`} />;
 }
