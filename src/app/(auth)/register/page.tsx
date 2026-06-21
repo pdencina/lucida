@@ -19,7 +19,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  function updateField(field: string, value: string) {
+  function update(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -52,20 +52,20 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-primary-700">Lúcida</h1>
+    <main className="flex min-h-screen items-center justify-center bg-white">
+      <div className="w-full max-w-sm px-6">
+        <div className="mb-8">
+          <h1 className="text-base font-semibold text-gray-900">lúcida</h1>
           <p className="mt-1 text-sm text-gray-500">Registra tu clínica</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <Input
             id="clinicaNombre"
             label="Nombre de la clínica"
             placeholder="Centro Médico Santiago"
             value={form.clinicaNombre}
-            onChange={(e) => updateField('clinicaNombre', e.target.value)}
+            onChange={(e) => update('clinicaNombre', e.target.value)}
             required
           />
           <Input
@@ -73,7 +73,7 @@ export default function RegisterPage() {
             label="RUT de la clínica"
             placeholder="76.123.456-7"
             value={form.clinicaRut}
-            onChange={(e) => updateField('clinicaRut', e.target.value)}
+            onChange={(e) => update('clinicaRut', e.target.value)}
             required
           />
           <Input
@@ -81,7 +81,7 @@ export default function RegisterPage() {
             label="Tu nombre"
             placeholder="María González"
             value={form.nombre}
-            onChange={(e) => updateField('nombre', e.target.value)}
+            onChange={(e) => update('nombre', e.target.value)}
             required
           />
           <Input
@@ -90,7 +90,7 @@ export default function RegisterPage() {
             type="email"
             placeholder="maria@clinica.cl"
             value={form.email}
-            onChange={(e) => updateField('email', e.target.value)}
+            onChange={(e) => update('email', e.target.value)}
             required
           />
           <Input
@@ -99,13 +99,13 @@ export default function RegisterPage() {
             type="password"
             placeholder="Mínimo 6 caracteres"
             value={form.password}
-            onChange={(e) => updateField('password', e.target.value)}
+            onChange={(e) => update('password', e.target.value)}
             minLength={6}
             required
           />
 
           {error && (
-            <p className="rounded-md bg-red-50 p-3 text-sm text-red-600">{error}</p>
+            <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>
           )}
 
           <Button type="submit" className="w-full" disabled={loading}>
@@ -113,9 +113,9 @@ export default function RegisterPage() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
+        <p className="mt-6 text-center text-xs text-gray-400">
           ¿Ya tienes cuenta?{' '}
-          <Link href="/login" className="font-medium text-primary-600 hover:text-primary-500">
+          <Link href="/login" className="text-gray-700 hover:underline">
             Iniciar sesión
           </Link>
         </p>

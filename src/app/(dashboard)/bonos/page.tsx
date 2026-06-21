@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 
-const MOCK_BONOS = [
+const BONOS = [
   { id: '1', folio: 'B-2024-001', fecha: '15/06/2026', paciente: 'María González', rut: '12.345.678-9', prestacion: 'Consulta general', aseguradora: 'FONASA', monto: 45000, estado: 'conciliado' },
   { id: '2', folio: 'B-2024-002', fecha: '15/06/2026', paciente: 'Juan Pérez', rut: '9.876.543-2', prestacion: 'Radiografía torax', aseguradora: 'Banmédica', monto: 82000, estado: 'pendiente' },
   { id: '3', folio: 'B-2024-003', fecha: '14/06/2026', paciente: 'Ana Muñoz', rut: '15.432.109-K', prestacion: 'Ecografía abdominal', aseguradora: 'Cruz Blanca', monto: 65000, estado: 'rechazado' },
@@ -21,14 +21,14 @@ function formatCLP(monto: number) {
 }
 
 function EstadoBadge({ estado }: { estado: string }) {
-  const styles = {
-    conciliado: 'bg-green-100 text-green-700',
-    pendiente: 'bg-amber-100 text-amber-700',
-    rechazado: 'bg-red-100 text-red-700',
+  const styles: Record<string, string> = {
+    conciliado: 'bg-emerald-50 text-emerald-700',
+    pendiente: 'bg-amber-50 text-amber-700',
+    rechazado: 'bg-red-50 text-red-700',
   };
   return (
-    <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${styles[estado as keyof typeof styles] || ''}`}>
-      {estado.charAt(0).toUpperCase() + estado.slice(1)}
+    <span className={`inline-block rounded px-1.5 py-0.5 text-[11px] font-medium ${styles[estado]}`}>
+      {estado}
     </span>
   );
 }
@@ -37,83 +37,77 @@ export default function BonosPage() {
   const [filtroEstado, setFiltroEstado] = useState<string>('todos');
   const [busqueda, setBusqueda] = useState('');
 
-  const bonosFiltrados = MOCK_BONOS.filter((b) => {
+  const filtrados = BONOS.filter((b) => {
     const matchEstado = filtroEstado === 'todos' || b.estado === filtroEstado;
-    const matchBusqueda = !busqueda || 
-      b.paciente.toLowerCase().includes(busqueda.toLowerCase()) ||
-      b.folio.toLowerCase().includes(busqueda.toLowerCase()) ||
-      b.prestacion.toLowerCase().includes(busqueda.toLowerCase());
+    const q = busqueda.toLowerCase();
+    const matchBusqueda = !q ||
+      b.paciente.toLowerCase().includes(q) ||
+      b.folio.toLowerCase().includes(q) ||
+      b.prestacion.toLowerCase().includes(q);
     return matchEstado && matchBusqueda;
   });
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Bonos</h1>
-          <p className="text-sm text-gray-500">{MOCK_BONOS.length} bonos en el período</p>
-        </div>
+      <div className="mb-6">
+        <h1 className="text-lg font-semibold text-gray-900">Bonos</h1>
+        <p className="text-sm text-gray-500">{BONOS.length} registros · Junio 2026</p>
       </div>
 
-      {/* Filtros */}
-      <div className="mb-4 flex flex-wrap items-center gap-3">
+      <div className="mb-4 flex items-center gap-3">
         <input
           type="text"
-          placeholder="Buscar por paciente, folio o prestación..."
-          className="w-72 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          placeholder="Buscar..."
+          className="h-8 w-64 rounded-md border border-gray-200 bg-white px-3 text-sm text-gray-700 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
         />
-        <div className="flex gap-1 rounded-lg border bg-white p-1">
+        <div className="flex rounded-md border border-gray-200 bg-white">
           {ESTADOS.map((estado) => (
             <button
               key={estado}
               onClick={() => setFiltroEstado(estado)}
-              className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 text-[12px] font-medium transition-colors first:rounded-l-md last:rounded-r-md ${
                 filtroEstado === estado
-                  ? 'bg-primary-600 text-white'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              {estado === 'todos' ? 'Todos' : estado.charAt(0).toUpperCase() + estado.slice(1)}
+              {estado}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Tabla */}
       <Card className="overflow-hidden p-0">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="border-b bg-gray-50">
-              <tr className="text-left text-gray-500">
-                <th className="px-4 py-3 font-medium">Folio</th>
-                <th className="px-4 py-3 font-medium">Fecha</th>
-                <th className="px-4 py-3 font-medium">Paciente</th>
-                <th className="px-4 py-3 font-medium">Prestación</th>
-                <th className="px-4 py-3 font-medium">Aseguradora</th>
-                <th className="px-4 py-3 font-medium text-right">Monto</th>
-                <th className="px-4 py-3 font-medium">Estado</th>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-100 text-left text-xs text-gray-400">
+              <th className="px-4 py-2.5 font-medium">Folio</th>
+              <th className="px-4 py-2.5 font-medium">Fecha</th>
+              <th className="px-4 py-2.5 font-medium">Paciente</th>
+              <th className="px-4 py-2.5 font-medium">Prestación</th>
+              <th className="px-4 py-2.5 font-medium">Aseguradora</th>
+              <th className="px-4 py-2.5 font-medium text-right">Monto</th>
+              <th className="px-4 py-2.5 font-medium">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtrados.map((b, i) => (
+              <tr key={b.id} className={`text-gray-700 hover:bg-gray-50 ${i < filtrados.length - 1 ? 'border-b border-gray-50' : ''}`}>
+                <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{b.folio}</td>
+                <td className="px-4 py-2.5 text-gray-500">{b.fecha}</td>
+                <td className="px-4 py-2.5">
+                  <span className="text-gray-900">{b.paciente}</span>
+                </td>
+                <td className="px-4 py-2.5 text-gray-500">{b.prestacion}</td>
+                <td className="px-4 py-2.5 text-gray-500">{b.aseguradora}</td>
+                <td className="px-4 py-2.5 text-right font-medium text-gray-900">{formatCLP(b.monto)}</td>
+                <td className="px-4 py-2.5"><EstadoBadge estado={b.estado} /></td>
               </tr>
-            </thead>
-            <tbody className="divide-y">
-              {bonosFiltrados.map((bono) => (
-                <tr key={bono.id} className="text-gray-700 hover:bg-gray-50">
-                  <td className="px-4 py-3 font-mono text-xs">{bono.folio}</td>
-                  <td className="px-4 py-3">{bono.fecha}</td>
-                  <td className="px-4 py-3">
-                    <div>{bono.paciente}</div>
-                    <div className="text-xs text-gray-400">{bono.rut}</div>
-                  </td>
-                  <td className="px-4 py-3">{bono.prestacion}</td>
-                  <td className="px-4 py-3">{bono.aseguradora}</td>
-                  <td className="px-4 py-3 text-right font-medium">{formatCLP(bono.monto)}</td>
-                  <td className="px-4 py-3"><EstadoBadge estado={bono.estado} /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </Card>
     </div>
   );

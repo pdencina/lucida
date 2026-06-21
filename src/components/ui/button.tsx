@@ -17,20 +17,17 @@ export function Button({
     <button
       className={clsx(
         'inline-flex items-center justify-center rounded-md font-medium transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-        'disabled:pointer-events-none disabled:opacity-50',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2',
+        'disabled:pointer-events-none disabled:opacity-40',
         {
-          'bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-primary-500':
-            variant === 'primary',
-          'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50':
-            variant === 'secondary',
-          'bg-danger-600 text-white hover:bg-danger-500':
-            variant === 'danger',
+          'bg-gray-900 text-white hover:bg-gray-800': variant === 'primary',
+          'border border-gray-200 bg-white text-gray-700 hover:bg-gray-50': variant === 'secondary',
+          'bg-red-600 text-white hover:bg-red-500': variant === 'danger',
         },
         {
-          'h-8 px-3 text-sm': size === 'sm',
-          'h-10 px-4 text-sm': size === 'md',
-          'h-12 px-6 text-base': size === 'lg',
+          'h-7 px-2.5 text-xs': size === 'sm',
+          'h-9 px-4 text-sm': size === 'md',
+          'h-11 px-5 text-sm': size === 'lg',
         },
         className
       )}
