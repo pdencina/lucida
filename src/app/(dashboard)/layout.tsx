@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 
+import { createClient } from '@/lib/utils/supabase/client';
+
 const NAV_ITEMS = [
   { href: '/', label: 'Resumen', icon: DashboardIcon },
   { href: '/bonos', label: 'Bonos', icon: BonosIcon },
@@ -19,6 +21,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
+  async function handleLogout() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    window.location.href = '/login';
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -55,6 +63,15 @@ export default function DashboardLayout({
         <div className="border-t border-gray-100 px-4 py-3">
           <p className="text-[12px] font-medium text-gray-700">BS Salud</p>
           <p className="text-[11px] text-gray-400">Junio 2026</p>
+          <button
+            onClick={handleLogout}
+            className="mt-2 flex items-center gap-1.5 text-[12px] text-gray-400 hover:text-gray-600"
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-current">
+              <path d="M6 14H3a1 1 0 01-1-1V3a1 1 0 011-1h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Cerrar sesión
+          </button>
         </div>
       </aside>
       <main className="flex-1 overflow-y-auto">
