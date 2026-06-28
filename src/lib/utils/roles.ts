@@ -12,6 +12,6 @@ export function getRol(email: string | undefined): Rol {
 
 // Rutas visibles por rol
 export const RUTAS_POR_ROL: Record<Rol, string[]> = {
-  admin: ['/', '/bonos', '/carga', '/conciliacion', '/alertas', '/configuracion'],
-  clinica: ['/', '/bonos', '/conciliacion'],
+  admin: ['/dashboard', '/bonos', '/carga', '/conciliacion', '/alertas', '/configuracion'],
+  clinica: ['/dashboard', '/bonos', '/conciliacion'],
 };

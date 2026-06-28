@@ -8,7 +8,7 @@ import { createClient } from '@/lib/utils/supabase/client';
 import { getRol, RUTAS_POR_ROL, type Rol } from '@/lib/utils/roles';
 
 const ALL_NAV_ITEMS = [
-  { href: '/', label: 'Resumen', icon: DashboardIcon },
+  { href: '/dashboard', label: 'Resumen', icon: DashboardIcon },
   { href: '/bonos', label: 'Bonos', icon: BonosIcon },
   { href: '/carga', label: 'Carga', icon: CargaIcon },
   { href: '/conciliacion', label: 'Conciliación', icon: ConciliacionIcon },

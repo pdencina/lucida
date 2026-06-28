@@ -40,7 +40,7 @@ export default function NuevaClavePage() {
       return;
     }
 
-    router.push('/');
+    router.push('/dashboard');
   }
 
   return (

@@ -1,32 +1,38 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { updateSession } from '@/lib/utils/supabase/middleware';
 
-const PUBLIC_ROUTES = ['/login', '/register', '/propuesta', '/recuperar', '/nueva-clave'];
+// Rutas que NO requieren autenticación
+const PUBLIC_ROUTES = ['/', '/login', '/register', '/propuesta', '/recuperar', '/nueva-clave'];
+
+// Rutas protegidas (dashboard)
+const PROTECTED_PREFIXES = ['/dashboard', '/bonos', '/carga', '/conciliacion', '/alertas', '/configuracion'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Rutas públicas: no requieren autenticación
-  if (PUBLIC_ROUTES.some((route) => pathname.startsWith(route))) {
+  // Rutas públicas
+  const isPublic = PUBLIC_ROUTES.includes(pathname);
+  if (isPublic) {
     return await updateSession(request);
   }
 
-  // Rutas de API: dejar pasar (manejan auth internamente)
+  // Rutas de API
   if (pathname.startsWith('/api')) {
     return await updateSession(request);
   }
 
-  // Para rutas protegidas: verificar sesión
+  // Rutas protegidas: verificar sesión
   const response = await updateSession(request);
 
-  // Revisar si hay cookie de sesión de Supabase
-  const hasSession = request.cookies.getAll().some(
-    (cookie) => cookie.name.startsWith('sb-') && cookie.name.endsWith('-auth-token')
-  );
+  const isProtected = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  if (isProtected) {
+    const hasSession = request.cookies.getAll().some(
+      (cookie) => cookie.name.startsWith('sb-') && cookie.name.endsWith('-auth-token')
+    );
 
-  if (!hasSession) {
-    const loginUrl = new URL('/login', request.url);
-    return NextResponse.redirect(loginUrl);
+    if (!hasSession) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
   }
 
   return response;
