@@ -25,7 +25,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="mx-auto max-w-5xl px-6 pb-20 pt-32">
         <div className="max-w-2xl">
-          <p className="mb-4 text-sm font-medium text-gray-400">Conciliación de ingresos clínicos</p>
+          <p className="mb-4 inline-block rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-500">Para clínicas y centros médicos en Chile</p>
           <h1 className="text-3xl font-semibold leading-[1.2] tracking-tight text-gray-900 sm:text-[42px]">
             Controle cada peso que entra a su clínica.
           </h1>
@@ -34,26 +34,55 @@ export default function LandingPage() {
           </p>
           <div className="mt-8 flex items-center gap-4">
             <a href="#contacto" className="rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-gray-800 active:scale-[0.98]">
-              Solicitar demo
+              Solicitar demo gratuita
             </a>
             <a href="#como-funciona" className="text-sm font-medium text-gray-500 hover:text-gray-900">
               Ver cómo funciona →
             </a>
           </div>
+          <p className="mt-4 text-xs text-gray-400">Sin compromiso · Primer análisis gratis</p>
         </div>
       </section>
 
       {/* Métricas */}
       <section className="border-y border-gray-100 bg-gray-50">
         <div className="mx-auto grid max-w-5xl grid-cols-1 divide-y divide-gray-200 px-6 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <Stat value="8-15%" label="de los ingresos se pierden sin seguimiento" />
-          <Stat value="24-48h" label="para su primer análisis real" />
-          <Stat value="$0" label="de implementación técnica" />
+          <Stat value="$1.5M" label="se pierde en promedio al mes en una clínica mediana" />
+          <Stat value="24-48h" label="para tener su primer análisis listo" />
+          <Stat value="$0" label="de implementación — empezamos de inmediato" />
+        </div>
+      </section>
+
+      {/* El problema */}
+      <section className="mx-auto max-w-5xl px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-sm font-medium text-gray-400">El problema</p>
+          <h2 className="mt-2 text-2xl font-semibold text-gray-900">Su clínica factura millones. ¿Cuánto llega realmente a su cuenta?</h2>
+          <p className="mt-4 text-sm leading-relaxed text-gray-500">
+            Entre lo que factura y lo que cobra hay un camino largo: el bono se emite, va a FONASA o la Isapre, 
+            ellos aprueban o rechazan, y eventualmente depositan. En cada paso se pierde dinero — por rechazos 
+            que nadie reclama, pagos que no llegan, y errores que pasan desapercibidos.
+          </p>
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="rounded-xl border border-red-100 bg-red-50 p-4 text-center">
+              <p className="text-lg font-semibold text-red-600">$1.2M</p>
+              <p className="mt-1 text-xs text-red-500">promedio mensual perdido por rechazos sin gestión</p>
+            </div>
+            <div className="rounded-xl border border-amber-100 bg-amber-50 p-4 text-center">
+              <p className="text-lg font-semibold text-amber-600">45 días</p>
+              <p className="mt-1 text-xs text-amber-500">demora promedio en detectar un bono sin liquidar</p>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center">
+              <p className="text-lg font-semibold text-gray-700">0 visibilidad</p>
+              <p className="mt-1 text-xs text-gray-500">la mayoría de clínicas no sabe cuánto se les debe</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Cómo funciona */}
-      <section id="como-funciona" className="mx-auto max-w-5xl px-6 py-20">
+      <section id="como-funciona" className="border-t border-gray-100 bg-gray-50">
+        <div className="mx-auto max-w-5xl px-6 py-20">
         <p className="text-sm font-medium text-gray-400">Proceso</p>
         <h2 className="mt-2 text-2xl font-semibold text-gray-900">Nosotros operamos. Usted ve resultados.</h2>
         <p className="mt-3 max-w-lg text-sm text-gray-500">No necesita instalar nada ni capacitar a su equipo. El proceso completo lo hacemos nosotros.</p>
@@ -62,6 +91,7 @@ export default function LandingPage() {
           <ProcessStep n="01" titulo="Nos envía sus archivos" desc="Los mismos Excel que ya maneja: bonos emitidos y liquidaciones de FONASA o Isapres. Por email o WhatsApp." />
           <ProcessStep n="02" titulo="Cruzamos y analizamos" desc="Conciliamos cada bono contra su liquidación. Identificamos rechazos, montos pendientes y diferencias." />
           <ProcessStep n="03" titulo="Accede a su panel" desc="Ve exactamente cuánto cobró, cuánto está pendiente y cuánto puede recuperar. Con acciones concretas." />
+        </div>
         </div>
       </section>
 
@@ -90,6 +120,9 @@ export default function LandingPage() {
           <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
             <p className="text-3xl font-semibold text-gray-900">$89.000 <span className="text-base font-normal text-gray-400">/ mes + IVA</span></p>
             <p className="mt-2 text-sm text-gray-500">Todo incluido. Sin implementación. Sin permanencia.</p>
+            <div className="mt-3 rounded-lg bg-emerald-50 px-3 py-2">
+              <p className="text-xs text-emerald-700">Si recupera $500.000 al mes, el retorno es de 5x la inversión.</p>
+            </div>
             <ul className="mt-6 space-y-3 text-left text-sm text-gray-600">
               <CheckItem text="Conciliación mensual completa" />
               <CheckItem text="Dashboard con resultados en tiempo real" />
@@ -123,11 +156,11 @@ export default function LandingPage() {
       {/* Contacto */}
       <section id="contacto" className="mx-auto max-w-5xl px-6 py-20">
         <div className="mx-auto max-w-md text-center">
-          <h2 className="text-2xl font-semibold text-gray-900">¿Le interesa probarlo?</h2>
-          <p className="mt-3 text-sm text-gray-500">Mándenos un archivo de bonos de un mes y le entregamos el análisis real de su clínica. Sin costo, sin compromiso.</p>
+          <h2 className="text-2xl font-semibold text-gray-900">Veamos sus números reales.</h2>
+          <p className="mt-3 text-sm text-gray-500">Envíenos un archivo de bonos de cualquier mes. Le entregamos el análisis de su clínica en 48 horas. Sin costo, sin compromiso.</p>
           <div className="mt-8 space-y-3">
             <a
-              href="https://wa.me/56900000000?text=Hola%2C%20me%20interesa%20una%20demo%20de%20Remis"
+              href="https://wa.me/56900000000?text=Hola%2C%20me%20interesa%20una%20demo%20de%20Remis%20para%20mi%20cl%C3%ADnica"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 text-sm font-medium text-white transition-all hover:bg-gray-800 active:scale-[0.98]"
@@ -139,28 +172,35 @@ export default function LandingPage() {
               Contactar por WhatsApp
             </a>
             <a
-              href="mailto:contacto@remis.cl?subject=Interesado en demo de Remis"
+              href="mailto:contacto@remis.cl?subject=Me%20interesa%20una%20demo%20de%20Remis"
               className="flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 active:scale-[0.98]"
             >
-              Escribir por email
+              contacto@remis.cl
             </a>
           </div>
-          <p className="mt-4 text-xs text-gray-400">contacto@remis.cl</p>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="border-t border-gray-100">
-        <div className="mx-auto max-w-5xl px-6 py-6">
-          <div className="flex items-center justify-between">
+        <div className="mx-auto max-w-5xl px-6 py-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-2">
               <div className="flex h-5 w-5 items-center justify-center rounded bg-gray-900">
                 <span className="text-[9px] font-bold text-white">R</span>
               </div>
               <span className="text-xs font-medium text-gray-500">Remis</span>
+              <span className="text-xs text-gray-300">·</span>
+              <span className="text-xs text-gray-400">Conciliación de ingresos clínicos</span>
             </div>
-            <p className="text-xs text-gray-400">© 2026 · Chile</p>
+            <div className="flex items-center gap-5 text-xs text-gray-400">
+              <a href="#como-funciona" className="hover:text-gray-600">Cómo funciona</a>
+              <a href="#precio" className="hover:text-gray-600">Precio</a>
+              <a href="#contacto" className="hover:text-gray-600">Contacto</a>
+              <Link href="/login" className="hover:text-gray-600">Acceder</Link>
+            </div>
           </div>
+          <p className="mt-4 text-[11px] text-gray-300">© 2026 Remis · Chile</p>
         </div>
       </footer>
     </div>
