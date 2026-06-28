@@ -22,7 +22,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [rol, setRol] = useState<Rol>('clinica');
+  const [rol, setRol] = useState<Rol>('cliente');
   const [email, setEmail] = useState<string>('');
   const [loaded, setLoaded] = useState(false);
 
@@ -81,7 +81,7 @@ export default function DashboardLayout({
                 >
                   <Icon active={isActive} />
                   <span className="flex-1">{item.label}</span>
-                  {item.badge && rol === 'admin' && (
+                  {item.badge && (
                     <span className={clsx(
                       'flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] font-semibold',
                       isActive ? 'bg-white/20 text-white' : 'bg-red-100 text-red-600'

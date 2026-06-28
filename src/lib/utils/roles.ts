@@ -1,17 +1,18 @@
-export type Rol = 'admin' | 'clinica';
+export type Rol = 'superadmin' | 'cliente';
 
-// Mapeo de emails a roles (después se puede mover a DB)
-const ROLES: Record<string, Rol> = {
-  'pablo@remis.cl': 'admin',
-};
+// Mapeo de emails a roles (después se mueve a DB con tabla perfiles)
+const SUPERADMINS: string[] = [
+  'pablo@remis.cl',
+];
 
 export function getRol(email: string | undefined): Rol {
-  if (!email) return 'clinica';
-  return ROLES[email] || 'clinica';
+  if (!email) return 'cliente';
+  return SUPERADMINS.includes(email) ? 'superadmin' : 'cliente';
 }
 
 // Rutas visibles por rol
+// El cliente ve TODO de su clínica — es autónomo
 export const RUTAS_POR_ROL: Record<Rol, string[]> = {
-  admin: ['/dashboard', '/bonos', '/carga', '/conciliacion', '/alertas', '/configuracion'],
-  clinica: ['/dashboard', '/bonos', '/conciliacion'],
+  superadmin: ['/dashboard', '/bonos', '/carga', '/conciliacion', '/alertas', '/configuracion'],
+  cliente: ['/dashboard', '/bonos', '/carga', '/conciliacion', '/alertas', '/configuracion'],
 };
